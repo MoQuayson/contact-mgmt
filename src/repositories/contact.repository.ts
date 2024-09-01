@@ -18,6 +18,10 @@ export class ContactRepository {
   async countByUserId(userId: string) {
     return await this.manager.countBy({ userId: userId });
   }
+
+  async insert(contact: ContactEntity): Promise<ContactEntity> {
+    return await this.manager.save(contact);
+  }
   async updateById(contact: ContactEntity): Promise<ContactEntity> {
     return await this.manager.save(contact);
   }

@@ -7,6 +7,7 @@ import { AppDataSourceOptions } from './app.datasource';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 import { RepositoryModule } from './repositories/repository.module';
+import { ContactsModule } from './contacts/contacts.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { RepositoryModule } from './repositories/repository.module';
     AuthModule,
     RepositoryModule,
     ConfigModule.forRoot({ isGlobal: true }),
+    ContactsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

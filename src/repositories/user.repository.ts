@@ -17,6 +17,9 @@ export class UserRepository {
   async findByEmail(email: string): Promise<UserEntity> {
     return await this.manager.findOneBy({ email: email });
   }
+  async create(user: UserEntity): Promise<UserEntity> {
+    return await this.manager.save(user);
+  }
   async updateById(user: UserEntity): Promise<UserEntity> {
     return await this.manager.save(user);
   }

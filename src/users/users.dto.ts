@@ -1,6 +1,15 @@
 import { classToPlain, Expose, Transform, Type } from 'class-transformer';
 import { UserEntity } from '../database/entities/user.entity';
 import { UserRole } from '../enums/user_role.enum';
+import { IsUUID } from '../validations/validation-decorators.utils';
+import {
+  IsEmail,
+  IsMobilePhone,
+  IsNotEmpty,
+  Length,
+  MinLength,
+  ValidateIf,
+} from 'class-validator';
 
 export class UserDto {
   id: string;
@@ -34,4 +43,19 @@ export class UserDto {
     dto.createdAt = user.createdAt;
     return dto;
   }
+}
+
+export class UserRequest {
+  //@IsUUID({message: (p)=>`${p.property} must be a valid uuid`})
+  @IsNotEmpty({ message: (p) => `${p.property} cannot be empty` })
+  @Length(3, 100, { message: (p) => `${p.property} must be between 3 and 100` })
+  firstName: string;
+  @Length(3, 100, { message: (p) => `${p.property} must be between 3 and 100` })
+  lastName: string;
+  @IsEmail({}, { message: 'email must be a valid email address' })
+  email: string;
+  @ValidateIf((o) => o.phone === '' || null)
+  @IsNotEmpty({ message: (p) => `${p.property} cannot be empty` })
+  @IsMobilePhone(null, {}, { message: 'phone must be a valid mobile number' })
+  phone: string | null;
 }
